@@ -5,8 +5,8 @@ const pgp = require('pg-promise')(/* options */)
 const app = express()
 
 const port = 3000
-const redisUrl = 'redis://localhost:6379'
-const postgresUrl = 'postgres://nasir:123456@172.17.0.1:5432/waypoint'
+const redisUrl = process.env.REDIS_URL || 'redis://localhost:6379'
+const postgresUrl = process.env.PG_URL || 'postgres://nasir:123456@172.17.0.1:5432/waypoint'
 
 const db = pgp(postgresUrl)
 let redisClient;
