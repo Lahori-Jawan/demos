@@ -7,23 +7,23 @@ const pgp = require('pg-promise')(/* options */)
 const app = express()
 
 const port = 3000
-// const redisUrl = process.env.REDIS_URL || 'redis://localhost:6379'
+const redisUrl = process.env.REDIS_URL || 'redis://localhost:6379'
 const postgresUrl = process.env.PG_URL || 'postgres://nasir:123456@172.17.0.1:5432/waypoint'
 console.log({postgresUrl})
 const db = pgp(postgresUrl)
 let redisClient;
 
-// (async () => {
-//   redisClient = redis.createClient({ url: redisUrl });
+(async () => {
+  redisClient = redis.createClient({ url: redisUrl });
 
-//   redisClient.on('connect', () => console.log('Redis server connected'))
-//   redisClient.on("error", (error) => console.error(`Redis ERROR: ${error}`));
+  redisClient.on('connect', () => console.log('Redis server connected'))
+  redisClient.on("error", (error) => console.error(`Redis ERROR: ${error}`));
 
-//   await redisClient.connect();
-//   await redisClient.set('key', 999);
-//   const value = await redisClient.get('key');
-//   console.log(`Redis DATA:`, Number(value))
-// })();
+  await redisClient.connect();
+  await redisClient.set('key', 999);
+  const value = await redisClient.get('key');
+  console.log(`Redis DATA:`, Number(value))
+})();
 
 db.one('SELECT $1 AS value', 123)
   .then((data) => {
