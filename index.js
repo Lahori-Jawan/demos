@@ -9,7 +9,7 @@ const app = express()
 const port = 3000
 // const redisUrl = process.env.REDIS_URL || 'redis://localhost:6379'
 const postgresUrl = process.env.PG_URL || 'postgres://nasir:123456@172.17.0.1:5432/waypoint'
-
+console.log({postgresUrl})
 const db = pgp(postgresUrl)
 let redisClient;
 
